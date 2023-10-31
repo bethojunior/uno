@@ -8,8 +8,20 @@ class UserValidator {
     this.userController = new UserController();
   }
 
+  validateAndUpdate(req: Request, res: Response, id: BigInt): void {
+    if (typeof req.body.name !== "string" || !req.body.name.trim()) {
+      res.status(400).json({ error: "Invalid user name data"});
+    }
+
+    if (!isValidEmail(req.body.email)) {
+      res.status(400).json({ error: "Invalid user email data" });
+    }
+
+    this.userController.update(id, req, res);
+  }
+
   validateAndStore(req: Request, res: Response): void {
-    const isValid = this.validateUserInput(req.body);
+    const isValid = this.store(req.body);
 
     if (isValid) {
       this.userController.store(req, res);
@@ -18,7 +30,7 @@ class UserValidator {
     }
   }
 
-  private validateUserInput(userData: any): boolean {
+  private store(userData: any): boolean {
     const { name, email, password } = userData;
 
     if (typeof name !== "string" || !name.trim()) {

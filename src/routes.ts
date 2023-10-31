@@ -1,21 +1,11 @@
 import express, { Router, Request, Response, response } from "express";
-import UserValidator from "./Validator/userValidator";
-
-const userValidator = new UserValidator();
+import { userRoutes } from "./routes/api/userRoutes";
 
 const router = Router();
 
 router.get("/", (req: Request, res: Response) => {
-  return res.json(true);
+  return res.json({data: 'Serve online'});
 });
 
-router
-  .route("/user")
-  .post((request: Request, response: Response) => {
-    userValidator.validateAndStore(request, response);
-  })
-  .get((request: Request, response: Response) => {
-    userValidator.validateAndStore(request, response);
-  });
 
 export { router };

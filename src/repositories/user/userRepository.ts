@@ -1,10 +1,11 @@
+import { User } from "@prisma/client";
 import prismaClient from "../../prisma";
 import bcrypt from "bcrypt";
 
 class UserRepository {
-  async store(req: Request): Promise<any> {
+  async store(req: Request): Promise<User | Error> {
+    let user;
     try {
-
       const isUnique = await prismaClient.user.findFirst({
         where: {
           email: req.email,
@@ -15,7 +16,7 @@ class UserRepository {
 
       const hashedPassword = await bcrypt.hash(req.password, 10);
 
-      const user = await prismaClient.user.create({
+      user = await prismaClient.user.create({
         data: {
           name: req.name,
           email: req.email,
@@ -26,6 +27,21 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
+
+    return user;
+  }
+
+  async update(id: BigInteger, req: Request): Promise<User | Error> {
+    let user;
+    try {
+      user = await prismaClient.user.update({
+        where: { id: id },
+        data: { req },
+      });
+    } catch (error) {
+      return error;
+    }
+    return user;
   }
 }
 
