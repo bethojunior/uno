@@ -23,5 +23,5 @@ app.use(
 );
 
 app.listen(port, () => {
-  console.log("Server on port 3333");
+  console.log("Server on port on 3333");
 });

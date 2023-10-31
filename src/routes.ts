@@ -1,7 +1,5 @@
 import express, { Router, Request, Response, response } from "express";
-
 import UserValidator from "./Validator/userValidator";
-import request from "express";
 
 const userValidator = new UserValidator();
 
