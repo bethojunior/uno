@@ -6,7 +6,6 @@ const repository = new UserRepository();
 class UserService {
   store(req: Request): any {
     let user;
-    // return req;
     try {
       user = repository.store(req);
     } catch (error) {
