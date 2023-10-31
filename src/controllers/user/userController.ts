@@ -7,7 +7,6 @@ class UserController {
   store(req: Request, res: Response): void {
     let user;
     try {
-      const { body } = req;
       user = userService.store(req);
     } catch (error) {
       res.json({ message: "error to create user: " + error });

@@ -8,12 +8,13 @@ class UserService {
     const { body } = req;
     let user;
     try {
-        user = repository.store(body);
+      user = repository.store(body);
     } catch (error) {
-        return error;
-    };
+      return error;
+    }
     return user;
   }
 }
+
 
 export default UserService;
