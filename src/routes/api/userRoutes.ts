@@ -3,9 +3,9 @@ import UserValidator from "../../Validator/userValidator";
 
 const userValidator = new UserValidator();
 
-const userRoutes = Router();
+const userRouter = Router();
 
-userRoutes
+userRouter
   .route("/api/user/:id")
   .post((request: Request, response: Response) => {
     userValidator.validateAndStore(request, response);
@@ -14,8 +14,8 @@ userRoutes
     userValidator.validateAndStore(request, response);
   })
   .put((request: Request, response: Response) => {
-    const userId = request.params.id; // Obtenha o parâmetro id da URL
+    const userId = request.params.id;
     userValidator.validateAndUpdate(request, response, userId);
   })
 
-export { userRoutes }
+export { userRouter }
