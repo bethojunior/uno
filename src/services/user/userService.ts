@@ -5,10 +5,10 @@ const repository = new UserRepository();
 
 class UserService {
   store(req: Request): any {
-    const { body } = req;
     let user;
+    // return req;
     try {
-      user = repository.store(body);
+      user = repository.store(req);
     } catch (error) {
       return error;
     }

@@ -5,19 +5,15 @@ import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 class UserRepository {
   async store(req: Request): Promise<any> {
-    const { body } = req;
-
     try {
-      const hashedPassword = await bcrypt.hash(body.password, 10);
+      const hashedPassword = await bcrypt.hash(req.password, 10);
       const user = await prisma.user.create({
-        
         data: {
-          name: body.name,
-          email: body.email,
+          name: req.name,
+          email: req.email,
           password: hashedPassword,
         },
       });
-
       return user;
     } catch (error) {
       throw error;
