@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import { Request } from "express";
 import UserRepository from "../../repositories/user/userRepository";
 
 const repository = new UserRepository();
@@ -14,6 +14,5 @@ class UserService {
     return user;
   }
 }
-
 
 export default UserService;

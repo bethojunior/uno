@@ -1,21 +1,20 @@
 import prismaClient from "../../prisma";
-import express, { Request } from "express";
 import bcrypt from "bcrypt";
 
 class UserRepository {
   async store(req: Request): Promise<any> {
     try {
 
-      // const isUnique = await prismaClient.user.findUnique({
-      //   where: {
-      //     email: req.email,
-      //   },
-      // });
+      const isUnique = await prismaClient.user.findFirst({
+        where: {
+          email: req.email,
+        },
+      });
 
-      // if(isUnique !== null)
-      //   throw "Email already has registration"
+      if (isUnique !== null) throw new Error("Email already has registration");
 
       const hashedPassword = await bcrypt.hash(req.password, 10);
+
       const user = await prismaClient.user.create({
         data: {
           name: req.name,
@@ -31,4 +30,3 @@ class UserRepository {
 }
 
 export default UserRepository;
-
